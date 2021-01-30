@@ -2,7 +2,13 @@ library(tidyverse)
 library(opendatatoronto)
 
 #Importing data
-crime <- search_packages("Police Annual Statistical Report - Reported Crimes")
-crime <- crime %>% list_package_resources()
-df <- crime %>% get_resource()
+traffic_collisions <- search_packages("Police Annual Statistical Report - Traffic Collisions")
+traffic_collisions <- traffic_collisions %>% list_package_resources()
+df <- traffic_collisions %>% get_resource()
 
+#Data cleaning
+df <- drop_na(df)
+df <- df[-c(2, 5)]
+
+by_geoDiv <- df %>% group_by(GeoDivision)
+count_by_geoDiv <- aggregate(df$Count_, by=list(Category=df$GeoDivision), FUN=sum)
