@@ -1,0 +1,8 @@
+library(tidyverse)
+library(opendatatoronto)
+
+#Importing data
+crime <- search_packages("Police Annual Statistical Report - Reported Crimes")
+crime <- crime %>% list_package_resources()
+df <- crime %>% get_resource()
+
