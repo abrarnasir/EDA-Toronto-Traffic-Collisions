@@ -1,6 +1,7 @@
 library(tidyverse)
 library(opendatatoronto)
 library(ggplot2)
+library(arsenal)
 
 #Importing data
 traffic_collisions <- search_packages("Police Annual Statistical Report - Traffic Collisions")
