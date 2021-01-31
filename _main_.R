@@ -9,9 +9,9 @@ df <- traffic_collisions %>% get_resource()
 
 #Data cleaning
 df <- drop_na(df)
-df <- df[-c(2, 5)]
+df <- df[-c(1, 2, 5)]
 
-#Analysis
+#Helpers
 count_by_geoDiv <- aggregate(df$Count_, by=list(Category=df$GeoDivision), FUN=sum)
 count_by_geoDiv <- count_by_geoDiv[count_by_geoDiv$Category != "NSA", , drop=FALSE]
 
@@ -26,5 +26,11 @@ by_geoDiv <- ggplot(data = count_by_geoDiv, aes(x=x, y=Category)) + geom_bar(sta
 
 TimeSeries <- ggplot(data = count_by_year, aes(x = Category, y = x)) + geom_line(color = "#00AFBB", size = 1.5) + labs(y="Count of collision occurences", x="Years") + ggtitle("Relationship between year and collision occurences")
 
+#Statistics
+summary(count_by_geoDiv$x)
+summary(count_by_year$x)
+summary(count_by_type$x)
 
-
+sd(count_by_geoDiv$x)
+sd(count_by_year$x)
+sd(count_by_type$x)
